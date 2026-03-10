@@ -14,7 +14,7 @@ compatibility: POSIX Shell
 
 metadata:
   author: Li Junhao
-  version: "0.1.0"
+  version: "1.0.0"
   category: x-cmd-extension
   tags: [x-cmd, publish, clawhub, validation]
 ---
