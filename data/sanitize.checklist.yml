@@ -1,0 +1,200 @@
+# Sanitization Checklist
+# Run this BEFORE any publish. Public skills are permanent.
+
+metadata:
+  name: clawhub-sanitize-checklist
+  version: "1.0.0"
+  purpose: Privacy and security sanitization before publish
+
+warning: Public skills are PERMANENT. Never publish without completing sanitization.
+
+# ==================== Check Items ====================
+checks:
+  # Personal Data
+  personal_names:
+    category: personal_data
+    severity: warning
+    description: Names (your name, team members, company)
+    action: Remove or genericize
+    
+  email_addresses:
+    category: personal_data
+    severity: warning
+    description: Email addresses
+    action: Remove or genericize
+    
+  usernames:
+    category: personal_data
+    severity: warning
+    description: Usernames, handles, IDs
+    action: Remove or genericize
+    
+  phone_numbers:
+    category: personal_data
+    severity: warning
+    description: Phone numbers
+    action: Remove or genericize
+    
+  addresses:
+    category: personal_data
+    severity: warning
+    description: Addresses, locations
+    action: Remove or genericize
+    
+  private_urls:
+    category: personal_data
+    severity: warning
+    description: URLs to private resources
+    action: Remove or genericize
+    
+  internal_projects:
+    category: personal_data
+    severity: warning
+    description: Internal project names
+    action: Remove or genericize
+    
+  client_refs:
+    category: personal_data
+    severity: warning
+    description: Client/customer references
+    action: Remove or genericize
+
+  # Credentials
+  api_keys:
+    category: credentials
+    severity: critical
+    description: API keys, tokens, passwords
+    action: NEVER include
+    
+  env_values:
+    category: credentials
+    severity: critical
+    description: Environment variable VALUES (names are ok)
+    action: NEVER include
+    
+  private_urls_auth:
+    category: credentials
+    severity: critical
+    description: Private URLs with auth params
+    action: NEVER include
+    
+  db_strings:
+    category: credentials
+    severity: critical
+    description: Database connection strings
+    action: NEVER include
+    
+  ssh_keys:
+    category: credentials
+    severity: critical
+    description: SSH keys, certificates
+    action: NEVER include
+
+  # Model References
+  claude_refs:
+    category: model_refs
+    severity: warning
+    description: '"Claude" references'
+    action: Replace with "the agent" or "the model"
+    
+  gpt_refs:
+    category: model_refs
+    severity: warning
+    description: '"GPT" references'
+    action: Replace with generic term
+    
+  model_versions:
+    category: model_refs
+    severity: warning
+    description: Specific model versions
+    action: Remove
+    
+  provider_features:
+    category: model_refs
+    severity: warning
+    description: Provider-specific features
+    action: Remove
+
+  # Internal References
+  file_paths:
+    category: internal_refs
+    severity: warning
+    description: References to your specific file paths
+    action: Remove
+    
+  workspace_structure:
+    category: internal_refs
+    severity: warning
+    description: Your workspace structure
+    action: Remove
+    
+  tool_configs:
+    category: internal_refs
+    severity: warning
+    description: Your tool configurations
+    action: Remove
+    
+  internal_docs:
+    category: internal_refs
+    severity: warning
+    description: Internal documentation links
+    action: Remove
+    
+  team_workflows:
+    category: internal_refs
+    severity: warning
+    description: Team-specific workflows
+    action: Remove
+
+  # Dangerous Patterns
+  dangerous_commands:
+    category: dangerous_patterns
+    severity: critical
+    description: Commands that could damage systems
+    action: Check for and remove
+    
+  unsafe_patterns:
+    category: dangerous_patterns
+    severity: critical
+    description: Patterns that encourage unsafe behavior
+    action: Check for and remove
+    
+  hardcoded_paths:
+    category: dangerous_patterns
+    severity: critical
+    description: Hardcoded paths that won't work elsewhere
+    action: Check for and remove
+    
+  env_assumptions:
+    category: dangerous_patterns
+    severity: critical
+    description: Assumptions about user's environment
+    action: Check for and remove
+
+  # Genericize Examples
+  company_paths:
+    category: genericize_examples
+    severity: info
+    description: Company-specific paths like ~/my-company/project
+    example_from: "~/my-company/project"
+    example_to: "~/projects/example"
+    
+  personal_emails:
+    category: genericize_examples
+    severity: info
+    description: Personal email examples like john@company.com
+    example_from: "john@company.com"
+    example_to: "user@example.com"
+    
+  company_domains:
+    category: genericize_examples
+    severity: info
+    description: Company-specific domains like api.mycompany.com
+    example_from: "api.mycompany.com"
+    example_to: "api.example.com"
+
+# ==================== Final Check ====================
+final_check:
+  comfort_question: Would I be comfortable if this were public forever?
+  exposure_question: Could this expose anything about me/my company?
+  context_question: Would this work for someone with zero context about me?

@@ -1,0 +1,138 @@
+# ClawHub Publish Checklist
+# Run this BEFORE any publish. Public skills are permanent.
+
+metadata:
+  name: clawhub-publish-checklist
+  version: "1.0.0"
+  purpose: Pre-publish validation and sanitization
+
+warning: |
+  Never publish without completing this process.
+  Public skills are PERMANENT.
+
+# ==================== Phase 1: Verification ====================
+verify:
+  title: Pre-Publish Verification
+  
+  setup:
+    - name: create_publish_folder
+      desc: Work in SEPARATE folder, never modify originals
+      path: "/tmp/publish-[slug]/"
+      structure:
+        - SKILL.md
+        - FILES.txt
+        - "[auxiliaries]"
+  
+  required_info:
+    - field: slug
+      desc: exact slug to use
+      required: true
+    - field: name
+      desc: exact display name
+      required: true
+    - field: version
+      desc: version number
+      required: true
+    - field: description
+      desc: exact description text
+      required: true
+    - field: files
+      desc: complete list of files to publish
+      required: true
+  
+  content_summary:
+    - Brief summary of what the skill does
+    - Key sections/topics covered
+    - Any notable inclusions or exclusions
+  
+  sanitization_confirmation:
+    - "Checked for personal data: ✓"
+    - "Checked for credentials: ✓"
+    - "Checked for model-specific references: ✓"
+    - Note any items that were removed/genericized
+  
+  approval_required:
+    warning: Do not proceed without explicit approval
+    confirm_items:
+      - Slug is correct
+      - Name is correct
+      - Description is correct
+      - Content looks right
+      - Ready to publish
+
+# ==================== Phase 2: Sanitization ====================
+sanitize:
+  title: Sanitization Checklist
+  
+  personal_data:
+    severity: warning
+    action: Remove or genericize
+    items:
+      - Names (your name, team members, company)
+      - Email addresses
+      - Usernames, handles, IDs
+      - Phone numbers
+      - Addresses, locations
+      - URLs to private resources
+      - Internal project names
+      - Client/customer references
+  
+  credentials:
+    severity: critical
+    action: NEVER include
+    items:
+      - API keys, tokens, passwords
+      - Environment variable VALUES (names are ok)
+      - Private URLs with auth params
+      - Database connection strings
+      - SSH keys, certificates
+  
+  model_refs:
+    severity: warning
+    action: Remove references to specific models
+    replacements:
+      - from: "Claude"
+        to: "the agent" or "the model"
+      - from: "GPT"
+        to: generic term
+    items:
+      - Specific model versions
+      - Provider-specific features
+  
+  internal_refs:
+    severity: warning
+    action: Remove
+    items:
+      - References to your specific file paths
+      - Your workspace structure
+      - Your tool configurations
+      - Internal documentation links
+      - Team-specific workflows
+  
+  dangerous_patterns:
+    severity: critical
+    action: Check for
+    items:
+      - Commands that could damage systems
+      - Patterns that encourage unsafe behavior
+      - Hardcoded paths that won't work elsewhere
+      - Assumptions about user's environment
+  
+  genericize_examples:
+    severity: info
+    action: Replace specific with generic
+    examples:
+      - from: "~/my-company/project"
+        to: "~/projects/example"
+      - from: "john@company.com"
+        to: "user@example.com"
+      - from: "api.mycompany.com"
+        to: "api.example.com"
+
+# ==================== Phase 3: Final Check ====================
+final_check:
+  title: Final Sanity Check
+  questions:
+    - Would I be comfortable if this were public forever?
+    - Could this expose anything about me/my company?
+    - Would this work for someone with zero context about me?

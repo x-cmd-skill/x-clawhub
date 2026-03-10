@@ -1,0 +1,107 @@
+# Pre-Publish Preflight Checklist
+# Never publish without completing this process.
+
+metadata:
+  name: clawhub-preflight-checklist
+  version: "1.0.0"
+  purpose: Pre-publish preflight check workflow
+
+warning: Never publish without completing this process. Public skills are PERMANENT.
+
+# ==================== Setup ====================
+setup:
+  create_publish_folder:
+    desc: Work in SEPARATE folder, never modify originals
+    path: "/tmp/publish-[slug]/"
+    structure:
+      - SKILL.md
+      - FILES.txt
+      - "[auxiliaries]"
+
+# ==================== Required Fields ====================
+required_fields:
+  slug:
+    field: slug
+    description: exact slug to use
+    required: true
+    
+  name:
+    field: name
+    description: exact display name
+    required: true
+    
+  version:
+    field: version
+    description: version number
+    required: true
+    
+  description:
+    field: description
+    description: exact description text
+    required: true
+    
+  files_list:
+    field: files
+    description: complete list of files to publish
+    required: true
+
+# ==================== Content Summary ====================
+content_summary:
+  what_it_does:
+    item: Brief summary of what the skill does
+    required: true
+    
+  key_sections:
+    item: Key sections/topics covered
+    required: true
+    
+  inclusions_exclusions:
+    item: Any notable inclusions or exclusions
+    required: false
+
+# ==================== Sanitization Confirmation ====================
+sanitization_confirmation:
+  personal_data_checked:
+    check: "Checked for personal data"
+    status: "✓"
+    required: true
+    
+  credentials_checked:
+    check: "Checked for credentials"
+    status: "✓"
+    required: true
+    
+  model_refs_checked:
+    check: "Checked for model-specific references"
+    status: "✓"
+    required: true
+    
+  notes:
+    description: Note any items that were removed/genericized
+    required: false
+
+# ==================== Approval Checklist ====================
+approval_checklist:
+  slug_correct:
+    item: Slug is correct
+    confirm: false
+    
+  name_correct:
+    item: Name is correct
+    confirm: false
+    
+  description_correct:
+    item: Description is correct
+    confirm: false
+    
+  content_looks_right:
+    item: Content looks right
+    confirm: false
+    
+  ready_to_publish:
+    item: Ready to publish
+    confirm: false
+    
+  explicit_approval:
+    warning: Do not proceed without explicit approval
+    required: true
