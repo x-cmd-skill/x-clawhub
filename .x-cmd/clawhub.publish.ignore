@@ -1,0 +1,5 @@
+# Files to ignore when publishing to ClawHub
+# Format: one path per line, relative to skill root
+
+# Git files
+.gitignore
